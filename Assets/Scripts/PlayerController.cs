@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour {
 
 	public Rigidbody rb;
 
-	public float speed;
+	public float speed, maxSpeed;
+	public float rot = 0;
 	public float tilt;
 	public Boundary boundary;
 	
@@ -42,8 +43,15 @@ public class PlayerController : MonoBehaviour {
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
-		
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+
+		rot -= moveHorizontal/35F;
+		speed += moveVertical;
+		if (speed > maxSpeed) 
+			speed = maxSpeed;
+		else if (speed < 0)
+			speed = 0;
+
+		Vector3 movement = new Vector3 (Mathf.Cos(rot), 0.0f, Mathf.Sin (rot));
 		//rb.AddForce (movement * speed);
 		rb.velocity = (movement * speed);
 
