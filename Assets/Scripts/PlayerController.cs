@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
-public class Boundary
-{
-	public float xMin, xMax, zMin, zMax;
-}
-
 public class PlayerController : MonoBehaviour {
 
 	public Rigidbody rb;
@@ -14,7 +8,6 @@ public class PlayerController : MonoBehaviour {
 	public float speed, maxSpeed;
 	public float rot = 0;
 	public float tilt;
-	public Boundary boundary;
 	
 	public GameObject shot;
 	public Transform shotSpawn;

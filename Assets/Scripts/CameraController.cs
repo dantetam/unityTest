@@ -5,6 +5,7 @@ public class CameraController : MonoBehaviour {
 	
 	public GameObject player;
 	public PlayerController playerScript;
+	public Vector3 lastOffset = new Vector3(0,0,0);
 		
 	void Start ()
 	{
@@ -28,7 +29,11 @@ public class CameraController : MonoBehaviour {
 		//print (playerScript);
 		//print ("dddd" + playerScript.rb);
 		Vector3 offset = -playerScript.rb.velocity;
-		offset.y = 1;
+		offset.y = playerScript.rb.velocity.magnitude + 1;
+		if (offset.magnitude < 1.2)
+			offset = lastOffset;
+		else
+			lastOffset = offset;
 		transform.position = player.transform.position + offset;
 		transform.LookAt(player.transform.position);
 	}
