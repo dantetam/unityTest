@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour {
 		playerScript = player.GetComponent<PlayerController>();
 	}
 	
-	void LateUpdate ()
+	void Update ()
 	{
 		/*
 		Vector3 diff = player.transform.position - past;
@@ -29,8 +29,8 @@ public class CameraController : MonoBehaviour {
 		//print (playerScript);
 		//print ("dddd" + playerScript.rb);
 		Vector3 offset = -playerScript.rb.velocity;
-		offset.y = playerScript.rb.velocity.magnitude + 1;
-		if (offset.magnitude < 1.2)
+		offset.y = (playerScript.rb.velocity.magnitude + 1)/2;
+		if (offset.magnitude < 1.5)
 			offset = lastOffset;
 		else
 			lastOffset = offset;

@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour {
 	public float speed, maxSpeed;
 	public float rot = 0;
 	public float tilt;
-	
+
+	public GameObject shots;
 	public GameObject shot;
 	public Transform shotSpawn;
 	public float fireRate;
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 			//rot.x = 0; rot.z = 0;
 			Quaternion rot = Quaternion.Euler(0, Mathf.Atan2(rb.velocity.x, rb.velocity.z)/3.14F*180F, 0);
-			Instantiate(shot, shotSpawn.position, rot);
+			GameObject temp = (GameObject)Instantiate(shot, shotSpawn.position, rot);
+			temp.transform.parent = shots.transform;
 			//audio.Play ();
 		}
 	}
@@ -37,7 +39,9 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 
-		rot -= moveHorizontal/35F;
+		if (speed > 0.1) {
+			rot -= moveHorizontal / 35F;
+		}
 		speed += moveVertical;
 		if (speed > maxSpeed) 
 			speed = maxSpeed;
