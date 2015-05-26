@@ -11,8 +11,9 @@ public class SpawnScript : MonoBehaviour {
 			if (Random.value < 0.01)
 			{
 				Vector3 pos = transform.position;
-				pos += new Vector3((float)(Random.value-0.5F)*50F, 0.5F, (float)(Random.value-0.5F)*50F);
-				Instantiate(coin, pos, Quaternion.identity);
+				pos += new Vector3((float)(Random.value-0.5F)*50F, 0.4F, (float)(Random.value-0.5F)*50F);
+				GameObject temp = (GameObject)Instantiate(coin, pos, Quaternion.identity);
+				temp.transform.parent = coins.transform;
 			}
 		}
 	}
