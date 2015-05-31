@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class PlayerController : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public float rot = 0;
 	public float tilt;
 
+	public GameObject coins;
 	public GameObject shots;
 	public GameObject shot;
 	public Transform shotSpawn;
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody>();
+		coins = GameObject.Find("Coins"); 
 	}
 	
 	void Update ()
@@ -32,6 +35,23 @@ public class PlayerController : MonoBehaviour {
 			temp.transform.parent = shots.transform;
 			//audio.Play ();
 		}
+		if (Input.GetButton("Fire2"))
+		{
+			RaycastHit hitInfo = new RaycastHit();
+			bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
+			if (hit) 
+			{
+				if (hitInfo.transform.gameObject.tag == "Baseplate")
+				{
+					Vector3 pos = hitInfo.point;
+					pos += new Vector3(0, 0.5F, 0);
+					GameObject coinPrefab = (GameObject)(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Cube.prefab", typeof(GameObject)));
+					GameObject temp = (GameObject)Instantiate(coinPrefab, pos, Quaternion.identity);
+					temp.transform.parent = coins.transform;
+				}
+			}
+			Debug.Log("Mouse is down");
+		} 
 	}
 
 	void FixedUpdate ()
